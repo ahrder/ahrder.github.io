@@ -27,8 +27,9 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am an associate professor in the Department of Mathematics at Lehigh University. My work is, broadly speaking in algebraic geometry. My research is related to the following topics.
+I am an Associate Professor in the Department of Mathematics at Lehigh University. My work is, broadly speaking in algebraic geometry. My research is related to the following topics.
 * Hodge theory,
-* Tropical geometry,
-* (Log) Calabi--Yau varieties,
-* Holomorphic symplectic varieties
+* Tropical and toric geometry,
+* Calabi-Yau varieties,
+* Holomorphic symplectic varieties,
+* Feynman integrals and amplitudes.
