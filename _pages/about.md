@@ -7,7 +7,7 @@ subtitle: <a href='https://math.cas.lehigh.edu'>Department of Mathematics, Lehig
 profile:
   align: right
   image: prof_pic2.jpg
-  image_circular: true # crops the image to make it circular
+  image_circular: false # crops the image to make it circular
   more_info: >
     <p>242 Chandler--Ullmann</p>
     <p>123 17 Memorial Drive East</p>
