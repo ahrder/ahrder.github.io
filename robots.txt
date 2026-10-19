@@ -1,4 +1,1 @@
-User-agent: *
-Disallow:
-
 Sitemap: https://ahrder.github.io/sitemap.xml
