@@ -1,0 +1,61 @@
+name: Build and deploy Academic Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: academic-pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v7.0.1
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1.328.0
+        with:
+          ruby-version: '3.3.12'
+          bundler-cache: true
+      - name: Build website
+        run: bundle exec jekyll build --strict_front_matter
+        env:
+          JEKYLL_ENV: production
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v5.0.0
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7.0.1
+      - name: Download built website
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Extract built website
+        run: |
+          mkdir -p _site
+          tar -xf "$RUNNER_TEMP/pages-artifact/artifact.tar" -C _site
+          touch _site/.nojekyll
+      - name: Publish to existing GitHub Pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: _site
+          force: false
+          single-commit: false
+          commit-message: Deploy Academic Pages from ${{ github.sha }}
